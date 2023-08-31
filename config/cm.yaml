@@ -1,0 +1,10 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: <name-of-ingress-controller>
+  namespace: ingress-nginx
+data:
+  http-snippet : |
+    limit_req_zone test zone=rd_ingress-hello_rps:10m rate=8r/s ;
+  location-snippet: |
+      limit_req zone=rd_ingress-hello_rps burst=1;

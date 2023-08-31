@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ping-new-server
+  labels:
+    app: ping-new
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ping-new
+  template:
+    metadata:
+      labels:
+        app: ping-new
+    spec:
+      containers:
+      - name: ping-new
+        image: docker.io/sonasingh46/ping-new:v1
+        ports:
+        - containerPort: 8080
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: ping-new-service
+spec:
+  selector:
+    app: ping-new
+  ports:
+  # Default port used by the image
+  - port: 8080
